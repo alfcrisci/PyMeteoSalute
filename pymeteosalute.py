@@ -2,12 +2,35 @@ import time,math
 import pytz
 import solar
 from datetime import datetime
+import sun
 
 pi =3.141592653589793238462643
 tpi = 2 * 3.141592653589793238462643
 degs = 180.0/3.141592653589793238462643
 rads = 3.141592653589793238462643/180.0
 
+def C2K(temp_c):
+  return temp_c + 273.16
+
+def C2F(temp_c):
+  return ((temp_c * 9.0)/5.0) + 32.0
+      
+def F2C(temp_f):
+  return ((temp_f - 32.0) * 5.0) / 9.0
+
+def dewpoint(celsius,humidity):
+	RATIO = 373.15 / (273.15 + celsius)
+	RHS = -7.90298 * (RATIO - 1)
+	RHS += 5.02808 * math.log10(RATIO)
+	RHS += -1.3816e-7 * (math.pow(10, (11.344 * (1 - 1/RATIO ))) - 1) 
+	RHS += 8.1328e-3 * (math.pow(10, (-3.49149 * (RATIO - 1))) - 1) 
+	RHS += math.log10(1013.246)
+	VP = pow(10, RHS - 3) * humidity
+	T = math.log(VP/0.61078)   
+	return (241.88 * T) / (17.558 - T)
+
+ 
+  
 def fix(n):
    if n >= 0.0:      
      return floor(n)
@@ -454,7 +477,7 @@ def p_local(press, topo, temp):
 	p_local = press*math.exp(-topo*9.81/(R_cost*T0))
 	return p_local 
  
-def utci_class(t,tmrt,wind,rh): 
+def utci_class_10(t,tmrt,wind,rh): 
 	utci_v=utci(t,tmrt,wind,rh)
 	utci_c=999.9
 	if utci_v > 46.0:
@@ -478,3 +501,29 @@ def utci_class(t,tmrt,wind,rh):
 	elif utci_v<=-40.0:
 		utci_c=1.0
 	return utci_c
+	
+def utci_class_7(t,tmrt,wind,rh): 
+	utci_v=utci(t,tmrt,wind,rh)
+	utci_c=999.9
+	if utci_v > 46.0:
+		utci_c=7.0
+	elif utci_v>38.0 and utci_v<=46.0:
+		utci_c=7.0
+	elif utci_v>32.0 and utci_v<=38.0:
+		utci_c=7.0
+	elif utci_v>26.0 and utci_v<=32.0:
+		utci_c=6.0
+	elif utci_v >16.0 and utci_v<=26.0:
+		utci_c=5.0
+	elif utci_v>0.0 and utci_v<=16.0:
+		utci_c=4.0
+	elif utci_v>-13.0 and utci_v<=0:
+		utci_c=3.0
+	elif utci_v>-27.0 and utci_v<=-13.0:
+		utci_c=2.0
+	elif utci_v>-40.0 and utci_v<=-27.0:
+		utci_c=1.0
+	elif utci_v<=-40.0:
+		utci_c=1.0
+	return utci_c
+	
