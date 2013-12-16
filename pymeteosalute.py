@@ -2,7 +2,7 @@ import time,math
 import pytz
 import solar
 from datetime import datetime
-import sun
+
 
 pi =3.141592653589793238462643
 tpi = 2 * 3.141592653589793238462643
