@@ -1,6 +1,4 @@
 import time,math
-import pytz
-import solar
 from datetime import datetime
 
 
@@ -479,7 +477,11 @@ def p_local(press, topo, temp):
  
 def utci_class_10(t,tmrt,wind,rh): 
 	utci_v=utci(t,tmrt,wind,rh)
-	utci_c=999.9
+	if t<-90:
+		return -99.9
+	if t>90:
+		return -99.9
+	utci_c=-99.9
 	if utci_v > 46.0:
 		utci_c=10.0
 	elif utci_v>38.0 and utci_v<=46.0:
@@ -504,7 +506,11 @@ def utci_class_10(t,tmrt,wind,rh):
 	
 def utci_class_7(t,tmrt,wind,rh): 
 	utci_v=utci(t,tmrt,wind,rh)
-	utci_c=999.9
+	if t<-90:
+		return -99.9
+	if t>90:
+		return -99.9
+	utci_c=-99.9
 	if utci_v > 46.0:
 		utci_c=7.0
 	elif utci_v>38.0 and utci_v<=46.0:
