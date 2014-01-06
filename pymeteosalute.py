@@ -221,7 +221,7 @@ def thom(t, p_hPa):
 
 
 def utci(t,rh,wind,tmrt):
-	utci_v=999.9
+	utci_v=-99.9
 	if t<-50.0 or t>50.0:
 		return utci_v
 	if tmrt<t-30.0 or tmrt>t+70.0:
