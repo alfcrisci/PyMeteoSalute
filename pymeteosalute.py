@@ -49,30 +49,22 @@ def data_oggi():
    return datetime.now().strftime('%Y-%m-%d ')
 
 def es(ta):
-  # Hardy, R.; ITS-90 Formulations for Vapor Pressure, Frostpoint
-  # Temperature, Temperature and Enhancement Factors in the
-  # Range -100 to 100 C; 
-  # Proceedings of Third International Symposium on Humidity and Moisture
-  # edited by National Physical Laboratory (NPL), London, 1998, pp. 214-221
-  # http:#www.thunderscientific.com/tech_info/reflibrary/its90formulas.pdf
-  # (retrieved 2008-10-01)
-  var(g,tk,es,x)
-  g= [ -2.8365744E3,
-                 -6.028076559E3,
-                  1.954263612E1,
-                 -2.737830188E-2,
-                  1.6261698E-5,
-                  7.0229056E-10,
-                 -1.8680009E-13,
-                  2.7150305]
+	# Hardy, R.; ITS-90 Formulations for Vapor Pressure, Frostpoint
+	# Temperature, Temperature and Enhancement Factors in the
+	# Range -100 to 100 C; 
+	# Proceedings of Third International Symposium on Humidity and Moisture
+	# edited by National Physical Laboratory (NPL), London, 1998, pp. 214-221
+	# http:#www.thunderscientific.com/tech_info/reflibrary/its90formulas.pdf
+	# (retrieved 2008-10-01)
+ 
+	g= [ -2.8365744E3,-6.028076559E3,1.954263612E1,-2.737830188E-2,1.6261698E-5,7.0229056E-10,-1.8680009E-13,2.7150305]
 				  
-  tk = ta+273.15; # air temp in K
-  es = g[7]*math.log(tk)
-  for x in range(0, 7):
-       es = es+g[x]*math.pow(tk,float(x-2)); 
-	   
-  es = math.exp(es)*0.01; # convert Pa to hPa
-  return es
+	tk = ta+273.15; # air temp in K
+	es = g[7]*math.log10(tk)
+	for x in range(0, 7):
+		es = es+g[x]*math.pow(tk,float(x-2)); 
+	es = math.exp(es)*0.01; # convert Pa to hPa
+	return es
 
 
 def dewpt(t,hpa):
