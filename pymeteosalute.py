@@ -68,7 +68,6 @@ def es(ta):
 
 
 def dewpt(t,hpa):
-	var(p,dpt)
 	p=math.log(100.0*hpa)
 	if t>=0.0:
 		dpt=(-60.45)+7.0322*p+.37*p*p
@@ -79,7 +78,6 @@ def dewpt(t,hpa):
 
 
 def degsat(t, rh, pa):
-	var(pws,mu)
 	pws = rh/100*6.10* math.pow(2.718281828,( 17.27*t/( 237.7+t)))
 	mu=rh*(1.0-pws/pa)/(1.0-rh*pws/pa)
 	return mu
@@ -88,7 +86,6 @@ def degsat(t, rh, pa):
 
 
 def heatindex( t, rh):
-	var(tf, tf2, ur2, hif)
 	if t<27.0: 
 		return t
 	else:
@@ -103,7 +100,6 @@ def heatindex( t, rh):
 
 
 def p_vap( t, rh):
-	var(pvap)
 	t += 273.15
 	if t>273.15:
 		pvap=(math.exp(-5800.2206/t+1.3914993-.048640239*t+(.41764768e-4)*math.pow(t,
@@ -122,7 +118,6 @@ def metabolism(t):
 
 
 def frostime(t,wind):
-	var(ft)
 	if wind> 100.1 or wind < 0.0:
 		return 999.9
 	elif t > -10.0 or t < -60.0:
