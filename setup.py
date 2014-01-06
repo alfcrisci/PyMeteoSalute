@@ -24,6 +24,6 @@ setup(name='pymeteosalute',
     license = 'GNU General Public License (GPL)',
     url='http://www.ibimet.cnr.it',
     py_modules=['pymeteosalute'],
-    requires = ['time', 'math', 'datetime', 'solar', 'pytz'],
+    requires = ['time', 'math', 'datetime'],
     )
 
